@@ -16,12 +16,40 @@ datasource db {
 
 model Client {
   id        Int      @id @default(autoincrement())
-  name      String?
+  name      String
   email     String   @unique
   status    Status   @default(ACTIVE)
+
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  allocations ClientAsset[] // Relation to the joining table
 }
 
 enum Status {
   ACTIVE
   INACTIVE
+}
+
+model Asset {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique
+  value   Decimal // Use Decimal type for financial accuracy
+
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  allocatedClients ClientAsset[]
+}
+
+model ClientAsset {
+  id        Int      @id @default(autoincrement())
+  clientId  Int
+  assetId   Int
+  quantity  Decimal // Use Decimal type for financial accuracy
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  client    Client @relation(fields: [clientId], references: [id])
+  asset     Asset  @relation(fields: [assetId], references: [id])
 }
