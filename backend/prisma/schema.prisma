@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -46,10 +46,11 @@ model ClientAsset {
   id        Int      @id @default(autoincrement())
   clientId  Int
   assetId   Int
-  quantity  Decimal // Use Decimal type for financial accuracy
+  quantity  Decimal @db.Decimal(10, 2)// Use Decimal type for financial accuracy
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([clientId, assetId]) 
   client    Client @relation(fields: [clientId], references: [id])
   asset     Asset  @relation(fields: [assetId], references: [id])
 }
