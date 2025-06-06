@@ -1,28 +1,17 @@
+'use client';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-gray-50">
-      <h1 className="text-4xl font-bold text-gray-800 mb-8">
-        Investment Client Hub
+    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-[#f1f5f9]">
+      <h1 className="text-1xl font-bold text-gray-800 mb-8">
+        <p className="text-1xl">Bem vindo!</p> Para começar a utilizar a aplicação acesse http://localhost:3000/clients ou clique no botão abaixo
       </h1>
 
-      <div className="flex flex-col space-y-4 w-full max-w-md">
-        <p className="text-lg text-gray-600 text-center">
-          Welcome to the client management application.
-        </p>
-
-        <Button className="w-full">
-          Get Started
-        </Button>
-
-        <Input placeholder="Enter your email" type="email" className="w-full" />
-
-        <Button variant="outline" className="w-full">
-          Learn More
-        </Button>
-      </div>
+      <Button onClick={() => router.push("/clients")}> Vamos! </Button>
     </main>
   );
 }

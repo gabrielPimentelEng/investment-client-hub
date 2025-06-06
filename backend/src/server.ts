@@ -3,6 +3,7 @@ import prismaPlugin from './plugins/prisma';
 import fastifyCors from '@fastify/cors';
 import { userRoutes } from "./routes/client";
 import { assetRoutes } from './routes/asset';
+import { clientAssetRoutes } from './routes/clientAsset';
 
 const app = fastify({
   logger: true 
@@ -15,6 +16,7 @@ app.register(fastifyCors, {
 app.register(prismaPlugin);
 app.register(userRoutes);
 app.register(assetRoutes);
+app.register(clientAssetRoutes);
 
 const startServer = async () => { 
   try {
