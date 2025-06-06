@@ -2,15 +2,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { toast } from 'sonner';
 import { Client } from '@/interfaces/interfaces';
-import { createClient,  CreateClientPayload } from '@/lib/api/clients';
-
+import { createClient, CreateUpdateClientPayload } from '@/lib/api/clients';
 interface AddClientFormProps {
   onSuccess?: () => void;
 }
 
 export function useCreateClient(options?: AddClientFormProps) {
   const queryClient = useQueryClient();
-  return useMutation<Client, AxiosError | Error, CreateClientPayload>({
+  return useMutation<Client, AxiosError | Error, CreateUpdateClientPayload>({
     mutationFn: createClient,
     
     onSuccess: () => {
@@ -40,7 +39,7 @@ export function useCreateClient(options?: AddClientFormProps) {
       } else if (error instanceof Error) {
           errorMessage = error.message; // Catch generic JS errors too
       }
-      toast.error("Erro ao criar cliente",{
+      toast.error("Erro",{
         description: errorMessage,
       });
     }
